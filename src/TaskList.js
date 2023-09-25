@@ -23,11 +23,10 @@ const TaskList =({tasks,onDelete,onUpdate,setTasks ,filterStatus}) =>{
             task.id === taskId ? {...task ,...editedTask}:task 
         );
         setTasks(updatedTasks);
-        console.log(updatedTasks)
         // onUpdate(taskId,editedTask);
         setEditingTaskId(null);
     };
-    console.log(tasks);
+
     return (
         <div>
           <h2>Task List</h2>
