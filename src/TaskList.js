@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-const TaskList =({tasks,onDelete,onUpdate,setTasks}) =>{
+
+const TaskList =({tasks,onDelete,onUpdate,setTasks ,filterStatus}) =>{
+
     const [editingTaskId, setEditingTaskId] =useState(null);
     const [editedTask,setEditedTask]= useState('');
     const handleEditClick =(taskId,task,) =>{
@@ -7,9 +9,18 @@ const TaskList =({tasks,onDelete,onUpdate,setTasks}) =>{
         setEditedTask(task);
     };
 
+    const filteredTasks = tasks.filter((task) => {
+        if (filterStatus === 'all') {
+          return true; // Show all tasks when 'all' is selected.
+        } else {
+          return task.status === filterStatus;
+        }
+      });
+      
+
     const handleSaveClick =(taskId) =>{
         const updatedTasks =tasks.map((task) =>
-            task.id === taskId ? {...task ,... editedTask}:task 
+            task.id === taskId ? {...task ,...editedTask}:task 
         );
         setTasks(updatedTasks);
         console.log(updatedTasks)
@@ -21,7 +32,8 @@ const TaskList =({tasks,onDelete,onUpdate,setTasks}) =>{
         <div>
           <h2>Task List</h2>
           <ul className="list-group">
-            {tasks.map((task) => (
+
+            {filteredTasks.map((task) => (
               <li key={task.id} className="list-group-item">
                 {editingTaskId === task.id ? (
                   <>

@@ -29,8 +29,8 @@ const TaskForm = ({onAdd}) =>{
     };
     return (
         <div>
-            <h2>Add Task</h2>
-            <div className='form-group'>
+            <h3>Please Create Task</h3>
+            <div className='form-group mt-2'>
             <input 
                 type="text"
                 placeholder='Enter Task Name'
@@ -39,7 +39,7 @@ const TaskForm = ({onAdd}) =>{
                 className="form-control"
             />
             </div>
-            <div className='form-group'>
+            <div className='form-group mt-2'>
             <textarea 
         
                 placeholder='Enter Task description'
@@ -48,8 +48,10 @@ const TaskForm = ({onAdd}) =>{
                 className="form-control"
             />
             </div>
-            <div className="form-group">
+            <div className="form-group my-2">
+            <label htmlFor="statusSelect">Task Status:</label>
                     <select
+                    id="statusSelect" 
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     className="form-control">
@@ -57,9 +59,10 @@ const TaskForm = ({onAdd}) =>{
                     <option value="completed">Completed</option>
                     </select>
                 </div>
-            <div className='form-group'>
+            <div className='form-group my-2'>
+            <label htmlFor="dueDate">Set Due Date</label>
             <input 
-        
+
                type="date"
                 value={dueDate}
                 onChange={(e)=>setDueDate(e.target.value)}

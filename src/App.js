@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import './App.css';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
+import Navbar from './Navbar';
 
 function App() {
  const [tasks,setTasks] =useState([]);
+ const [filterStatus, setFilterStatus] = useState('all'); 
+
 
  const addTask = (newTask)=>{
    console.log(newTask);
@@ -31,11 +34,25 @@ function App() {
    setTasks(updatedTasks);
  };
   return (
-    <div>
-      <h3>Task Management App</h3>
+    <div className='container mt-3'>
+    <Navbar />
       <TaskForm onAdd={addTask} />
+      <div className="form-group">
+        <label>Filter by Status:</label>
+        <select
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+          className="form-control"
+        >
+          <option value="all">All</option>
+          <option value="incomplete">Incomplete</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
       <TaskList tasks={tasks} onDelete={deleteTask}
-      onUpdate={updateTask}  setTasks={setTasks}/>
+      onUpdate={updateTask}  setTasks={setTasks}
+      filterStatus={filterStatus}
+      />
     </div>
   );
 }
