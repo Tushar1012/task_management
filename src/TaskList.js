@@ -29,7 +29,7 @@ const TaskList =({tasks,onDelete,onUpdate,setTasks ,filterStatus}) =>{
 
     return (
         <div>
-          <h2>Task List</h2>
+          
           <ul className="list-group">
 
             {filteredTasks.map((task) => (

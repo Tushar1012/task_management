@@ -1,4 +1,5 @@
 import React, { useState ,useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import './App.css';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
@@ -56,29 +57,41 @@ function App() {
     return () => clearInterval(intervalId);
   }, [tasks]);
   return (
-    <div className='container mt-3'>
-    <Navbar />
-    <ToastContainer autoClose={5000} />
-    
-      <TaskForm onAdd={addTask} />
-      <div className="form-group">
-        <label>Filter by Status:</label>
-        <select
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-          className="form-control"
-        >
-          <option value="all">All</option>
-          <option value="incomplete">Incomplete</option>
-          <option value="completed">Completed</option>
-        </select>
+    <Router>
+      <div className='container mt-3'>
+        <Navbar />
+        <ToastContainer autoClose={5000} />
+        <Routes>
+          <Route path="/" element={<TaskForm onAdd={addTask} />} />
+          <Route
+            path="/tasklist"
+            element={
+              <>
+                <div className="form-group">
+                  <label>Filter by Status:</label>
+                  <select
+                    value={filterStatus}
+                    onChange={(e) => setFilterStatus(e.target.value)}
+                    className="form-control"
+                  >
+                    <option value="all">All</option>
+                    <option value="incomplete">Incomplete</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+                <TaskList
+                  tasks={tasks}
+                  onDelete={deleteTask}
+                  onUpdate={updateTask}
+                  setTasks={setTasks}
+                  filterStatus={filterStatus}
+                />
+              </>
+            }
+          />
+        </Routes>
       </div>
-      <TaskList tasks={tasks} onDelete={deleteTask}
-      onUpdate={updateTask}  setTasks={setTasks}
-      filterStatus={filterStatus}
-      />
-      
-    </div>
+    </Router>
   );
 }
 
